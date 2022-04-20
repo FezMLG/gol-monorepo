@@ -20,23 +20,41 @@ export function Index() {
   const [isAutoplayOn, setIsAutoplayOn] = useState<boolean>(false);
 
   useEffect(() => {
-    const g = new GameOfLife(10, 10);
-    setGame(g);
+    initialize();
   }, []);
+
+  const initialize = async () => {
+    // const lboard = [
+    //   [0, 0, 0, 0, 0],
+    //   [0, 1, 1, 0, 0],
+    //   [0, 1, 0, 0, 0],
+    //   [0, 0, 0, 1, 1],
+    //   [0, 0, 0, 1, 0],
+    // ];
+    const genBoard = await axios.get('http://localhost:3333/api/board/5');
+    // const g = new GameOfLife(10, 10);
+    console.log('genBoard', genBoard.data);
+    setBoard(genBoard.data.board);
+  };
 
   const tick = async () => {
     // game.tick();
     // let currentBoard = game.getBoard();
-    const currentBoard = await axios.post('/tick', { id: boardId });
+    const currentBoard = await axios.post('http://localhost:3333/api/tick', {
+      id: boardId,
+    });
+    console.log('tick array');
+    console.dir(currentBoard.data.board);
+    console.log(boardId);
     setBoard(currentBoard.data.board);
   };
 
-  useEffect(() => {
-    if (game) {
-      const currentBoard = game.getBoard();
-      setBoard(currentBoard);
-    }
-  }, [game]);
+  // useEffect(() => {
+  //   if (game) {
+  //     const currentBoard = game.getBoard();
+  //     setBoard(currentBoard);
+  //   }
+  // }, [game]);
 
   useEffect(() => {
     if (board && isBoardEmpty(board)) {
@@ -55,27 +73,38 @@ export function Index() {
   }, [isAutoplayOn, isEmpty]);
 
   const setCell = (row: number, col: number) => {
-    game.setCell(row, col);
+    // game.setCell(row, col);
+    if (board[row][col] == 1) {
+      board[row][col] = 0;
+    } else {
+      board[row][col] = 1;
+    }
+    console.dir(board);
   };
 
-  const startGame = () => {
+  const startGame = async () => {
+    const g = await axios.post('http://localhost:3333/api/board', {
+      board: board,
+    });
+    setBoard(g.data.board);
+    setBoardId(g.data.id);
     setHasStarted(true);
   };
 
   const startWithDefault = () => {
-    game.setCell(1, 1);
-    game.setCell(1, 2);
-    game.setCell(2, 2);
-    game.setCell(3, 2);
-    game.setCell(4, 2);
-    game.setCell(4, 3);
+    // game.setCell(1, 1);
+    // game.setCell(1, 2);
+    // game.setCell(2, 2);
+    // game.setCell(3, 2);
+    // game.setCell(4, 2);
+    // game.setCell(4, 3);
     setHasStarted(true);
   };
 
   const restart = () => {
     setHasStarted(false);
-    const g = new GameOfLife(10, 10);
-    setGame(g);
+    // const g = new GameOfLife(10, 10);
+    // setGame(g);
   };
 
   const autotick = () => {
@@ -93,7 +122,9 @@ export function Index() {
                 {row.map((cell: number, colIndex) => {
                   return (
                     <div key={`${rowIndex}-${colIndex}`}>
-                      {hasStarted && <Cell isActive={cell ? true : false} />}
+                      {hasStarted && (
+                        <Cell isActive={cell == 1 ? true : false} />
+                      )}
                       {!hasStarted && (
                         <Cell
                           isActive={false}
