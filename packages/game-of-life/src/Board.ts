@@ -20,7 +20,6 @@ export class Board {
       }
       this.board.push(toPush);
     }
-    console.log(this.board);
     return this;
   }
 
@@ -39,12 +38,12 @@ export class Board {
 
   tick() {
     this.startingBoard = [...this.board];
-    this.board = this.board.map((row, i) => {
+    return (this.board = this.board.map((row, i) => {
       return row.map((col, j) => {
         const n = this.getAllNeighbors(i, j, this.startingBoard);
         const cell = new Cell(this.startingBoard[i][j], n).tick().getState();
         return cell;
       });
-    });
+    }));
   }
 }
