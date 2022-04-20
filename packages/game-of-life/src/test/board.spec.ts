@@ -41,7 +41,7 @@ describe('GOL', () => {
       [0, 0, 0, 1, 1],
     ];
     game.createCustomBoard(board);
-    game.tick();
+    game.tick(board);
     expect(game.getBoard()).toEqual(boardAfterTick);
   });
 });
