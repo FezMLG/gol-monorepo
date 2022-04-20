@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { CreateBoardDto } from './dto/createBoard.dto';
@@ -15,6 +22,11 @@ export class AppController {
 
   @Post('tick')
   getTick(@Body() getTickDto: GetTickDto) {
-    return this.appService.getTick(getTickDto);
+    const res = this.appService.getTick(getTickDto);
+    if (!res) {
+      throw new HttpException('Board not found', HttpStatus.BAD_REQUEST);
+    } else {
+      return res;
+    }
   }
 }

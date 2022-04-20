@@ -1,6 +1,6 @@
-import { IsArray } from 'class-validator';
+import { IsArray, IsUUID } from 'class-validator';
 
 export class GetTickDto {
-  @IsArray()
-  readonly board: number[][];
+  @IsUUID()
+  readonly id: string;
 }

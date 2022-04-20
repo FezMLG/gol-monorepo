@@ -20,17 +20,25 @@ describe('AppController (e2e)', () => {
   });
 
   describe('/board (POST)', () => {
-    it('should return created board', async () => {
+    it('should return created board with id', async () => {
       const length = 5;
+      const board = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+      ];
       const response = await request(app.getHttpServer())
         .post('/board')
-        .send({ size: length })
+        .send({ board: board })
         .expect('Content-Type', /json/)
         .expect(201);
       expect(response.body.board).toHaveLength(length);
       response.body.board.forEach((element) => {
         expect(element).toHaveLength(length);
       });
+      expect(response.body.id).toEqual(expect.any(String));
     });
   });
 
@@ -50,12 +58,18 @@ describe('AppController (e2e)', () => {
         [0, 0, 1, 1, 1],
         [0, 0, 0, 1, 1],
       ];
-      const response = await request(app.getHttpServer())
-        .post('/tick')
+      const res = await request(app.getHttpServer())
+        .post('/board')
         .send({ board: board })
         .expect('Content-Type', /json/)
         .expect(201);
+      const response = await request(app.getHttpServer())
+        .post('/tick')
+        .send({ id: res.body.id })
+        .expect('Content-Type', /json/)
+        .expect(201);
       expect(response.body.board).toEqual(boardAfterTick);
+      expect(response.body.id).toEqual(res.body.id);
     });
   });
 });

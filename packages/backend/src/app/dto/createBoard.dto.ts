@@ -1,6 +1,6 @@
-import { IsNumber } from 'class-validator';
+import { IsArray, IsNumber } from 'class-validator';
 
 export class CreateBoardDto {
-  @IsNumber()
-  readonly size: number;
+  @IsArray()
+  readonly board: number[][];
 }
