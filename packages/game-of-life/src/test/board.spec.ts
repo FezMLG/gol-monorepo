@@ -44,4 +44,27 @@ describe('GOL', () => {
     game.tick(board);
     expect(game.getBoard()).toEqual(boardAfterTick);
   });
+
+  it('should work', () => {
+    const board = [
+      [0, 0, 0, 0, 0],
+      [0, 1, 1, 0, 0],
+      [0, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 0, 1, 0],
+    ];
+    const boardAfterTick = [
+      [0, 0, 0, 0, 0],
+      [0, 1, 1, 0, 0],
+      [0, 1, 0, 1, 0],
+      [0, 0, 1, 1, 1],
+      [0, 0, 0, 1, 1],
+    ];
+    game.createCustomBoard(board);
+    game.tick(board);
+    const next = game.getBoard();
+    console.log(next);
+    game.tick(next);
+    console.log(game.getBoard());
+  });
 });
