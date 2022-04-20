@@ -24,7 +24,6 @@ export function Index() {
 
   const initialize = async () => {
     const genBoard = await axios.get('http://localhost:3333/api/board/5');
-    console.log('genBoard', genBoard.data);
     setBoard(genBoard.data.board);
   };
 
@@ -32,9 +31,6 @@ export function Index() {
     const currentBoard = await axios.post('http://localhost:3333/api/tick', {
       id: boardId,
     });
-    console.log('tick array');
-    console.dir(currentBoard.data.board);
-    console.log(boardId);
     setBoard(currentBoard.data.board);
   };
 
@@ -61,7 +57,6 @@ export function Index() {
     } else {
       board[row][col] = 1;
     }
-    console.dir(board);
   };
 
   const startGame = async () => {
