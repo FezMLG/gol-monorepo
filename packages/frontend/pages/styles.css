@@ -398,3 +398,7 @@ summary svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.autoplay-true{
+  box-shadow:inset 0px 0px 5px 1px #f00 !important;
+}

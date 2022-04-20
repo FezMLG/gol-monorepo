@@ -78,7 +78,7 @@ export function Index() {
     setHasStarted(false);
   };
 
-  const autotick = () => {
+  const autoTick = () => {
     setIsAutoplayOn(!isAutoplayOn);
   };
 
@@ -127,7 +127,10 @@ export function Index() {
           <button onClick={tick} className={styles.button}>
             tick
           </button>
-          <button onClick={autotick} className={styles.button}>
+          <button
+            onClick={autoTick}
+            className={`${styles.button} autoplay-${isAutoplayOn}`}
+          >
             autoplay
           </button>
           <button onClick={restart} className={styles.button}>
