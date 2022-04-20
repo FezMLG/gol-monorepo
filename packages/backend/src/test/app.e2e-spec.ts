@@ -33,4 +33,29 @@ describe('AppController (e2e)', () => {
       });
     });
   });
+
+  describe('/tick (POST)', () => {
+    it('should return board after tick', async () => {
+      const board = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 1],
+        [0, 0, 0, 1, 0],
+      ];
+      const boardAfterTick = [
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 1, 1],
+      ];
+      const response = await request(app.getHttpServer())
+        .post('/tick')
+        .send({ board: board })
+        .expect('Content-Type', /json/)
+        .expect(201);
+      expect(response.body.board).toEqual(boardAfterTick);
+    });
+  });
 });

@@ -13,7 +13,7 @@ export class AppController {
     return this.appService.createBoard(createBoardDto);
   }
 
-  @Get('tick')
+  @Post('tick')
   getTick(@Body() getTickDto: GetTickDto) {
     return this.appService.getTick(getTickDto);
   }
