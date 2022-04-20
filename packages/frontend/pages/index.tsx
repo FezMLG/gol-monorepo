@@ -12,7 +12,6 @@ const isBoardEmpty = (board: number[][]): boolean => {
 };
 
 export function Index() {
-  // const [game, setGame] = useState<any>();
   const [board, setBoard] = useState<number[][]>();
   const [boardId, setBoardId] = useState<string>();
   const [hasStarted, setHasStarted] = useState<boolean>(false);
@@ -24,22 +23,12 @@ export function Index() {
   }, []);
 
   const initialize = async () => {
-    // const lboard = [
-    //   [0, 0, 0, 0, 0],
-    //   [0, 1, 1, 0, 0],
-    //   [0, 1, 0, 0, 0],
-    //   [0, 0, 0, 1, 1],
-    //   [0, 0, 0, 1, 0],
-    // ];
     const genBoard = await axios.get('http://localhost:3333/api/board/5');
-    // const g = new GameOfLife(10, 10);
     console.log('genBoard', genBoard.data);
     setBoard(genBoard.data.board);
   };
 
   const tick = async () => {
-    // game.tick();
-    // let currentBoard = game.getBoard();
     const currentBoard = await axios.post('http://localhost:3333/api/tick', {
       id: boardId,
     });
@@ -48,13 +37,6 @@ export function Index() {
     console.log(boardId);
     setBoard(currentBoard.data.board);
   };
-
-  // useEffect(() => {
-  //   if (game) {
-  //     const currentBoard = game.getBoard();
-  //     setBoard(currentBoard);
-  //   }
-  // }, [game]);
 
   useEffect(() => {
     if (board && isBoardEmpty(board)) {
@@ -92,19 +74,11 @@ export function Index() {
   };
 
   const startWithDefault = () => {
-    // game.setCell(1, 1);
-    // game.setCell(1, 2);
-    // game.setCell(2, 2);
-    // game.setCell(3, 2);
-    // game.setCell(4, 2);
-    // game.setCell(4, 3);
     setHasStarted(true);
   };
 
   const restart = () => {
     setHasStarted(false);
-    // const g = new GameOfLife(10, 10);
-    // setGame(g);
   };
 
   const autotick = () => {
