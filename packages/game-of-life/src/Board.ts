@@ -36,7 +36,8 @@ export class Board {
     return aliveNeighbors;
   }
 
-  tick() {
+  tick(board: number[][]) {
+    this.board = board;
     this.startingBoard = [...this.board];
     return (this.board = this.board.map((row, i) => {
       return row.map((col, j) => {

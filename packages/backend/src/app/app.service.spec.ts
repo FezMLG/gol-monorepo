@@ -14,15 +14,10 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to backend!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to backend!' });
-    });
-
     it('should return new game board', () => {
       const bo = service.createBoard({ size: 5 });
-      console.log(bo);
-      expect(bo).toHaveLength(5);
-      bo.forEach((element) => {
+      expect(bo.board).toHaveLength(5);
+      bo.board.forEach((element) => {
         expect(element).toHaveLength(5);
       });
     });

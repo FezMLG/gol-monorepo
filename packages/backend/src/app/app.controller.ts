@@ -2,15 +2,11 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { CreateBoardDto } from './dto/createBoard.dto';
+import { GetTickDto } from './dto/getTick.dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
-  }
 
   @Post('board')
   createBoard(@Body() createBoardDto: CreateBoardDto) {
@@ -18,7 +14,7 @@ export class AppController {
   }
 
   @Get('tick')
-  getTick() {
-    return this.appService.getTick();
+  getTick(@Body() getTickDto: GetTickDto) {
+    return this.appService.getTick(getTickDto);
   }
 }
