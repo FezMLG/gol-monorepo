@@ -6,6 +6,7 @@ export class Board {
 
   createCustomBoard(board: number[][]) {
     this.board = board;
+    return this;
   }
 
   getBoard(): number[][] {
