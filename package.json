@@ -2,7 +2,10 @@
   "name": "gol-monorepo",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "npx nx run-many --target=build --projects=backend --parallel=true",
+    "start": "node dist/packages/backend/main.js"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^8.0.0",
