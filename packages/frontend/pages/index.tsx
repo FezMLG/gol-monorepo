@@ -29,10 +29,12 @@ export function Index() {
     initialize();
   }, []);
 
+  const api = 'https://gol-backend.herokuapp.com';
+  // const api = 'http://localhost:3333';
   const initialize = async () => {
     try {
       const genBoard: AxiosResponse<IResponseBoard> = await axios.get(
-        `http://localhost:3333/api/board/${size}`
+        `${api}/api/board/${size}`
       );
       setBoard(genBoard.data.board);
     } catch (error) {
@@ -43,7 +45,7 @@ export function Index() {
   const tick = async () => {
     try {
       const currentBoard: AxiosResponse<IResponseTick> = await axios.post(
-        'http://localhost:3333/api/tick',
+        `${api}/api/tick`,
         {
           id: boardId,
         }
@@ -86,7 +88,7 @@ export function Index() {
 
   const startGame = async () => {
     const g: AxiosResponse<IResponseStart> = await axios.post(
-      'http://localhost:3333/api/board',
+      `${api}/api/board`,
       {
         board: board,
       }
