@@ -1,7 +1,12 @@
 import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import Cell from '../components/cell/cell';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import {
+  IResponseBoard,
+  IResponseStart,
+  IResponseTick,
+} from '@gol-monorepo/interfaces';
 
 const isBoardEmpty = (board: number[][]): boolean => {
   return board
@@ -26,7 +31,7 @@ export function Index() {
 
   const initialize = async () => {
     try {
-      const genBoard = await axios.get(
+      const genBoard: AxiosResponse<IResponseBoard> = await axios.get(
         `http://localhost:3333/api/board/${size}`
       );
       setBoard(genBoard.data.board);
@@ -37,9 +42,12 @@ export function Index() {
 
   const tick = async () => {
     try {
-      const currentBoard = await axios.post('http://localhost:3333/api/tick', {
-        id: boardId,
-      });
+      const currentBoard: AxiosResponse<IResponseTick> = await axios.post(
+        'http://localhost:3333/api/tick',
+        {
+          id: boardId,
+        }
+      );
       setBoard(currentBoard.data.board);
       // if (isAutoplayOn) {
       //   tick();
@@ -77,9 +85,12 @@ export function Index() {
   };
 
   const startGame = async () => {
-    const g = await axios.post('http://localhost:3333/api/board', {
-      board: board,
-    });
+    const g: AxiosResponse<IResponseStart> = await axios.post(
+      'http://localhost:3333/api/board',
+      {
+        board: board,
+      }
+    );
     setBoard(g.data.board);
     setBoardId(g.data.id);
     setHasStarted(true);

@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gol-monorepo/game-of-life": ["packages/game-of-life/src/index.ts"]
+      "@gol-monorepo/game-of-life": ["packages/game-of-life/src/index.ts"],
+      "@gol-monorepo/interfaces": ["packages/interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
