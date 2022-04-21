@@ -126,7 +126,7 @@ export function Index() {
     <div className={styles.page}>
       <div className={styles.wrapper}>
         <h1 className={styles.header}>Game of life</h1>
-        <div className="board">
+        <div className="board" data-testid="board">
           {board?.map((row: number[], rowIndex) => {
             return (
               <div key={rowIndex} className={styles.row}>
