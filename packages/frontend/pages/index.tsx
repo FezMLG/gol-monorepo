@@ -125,7 +125,7 @@ export function Index() {
   };
 
   const requestBoard = async () => {
-    const genBoard = await axios.get(`http://localhost:3333/api/board/${size}`);
+    const genBoard = await axios.get(`${api}/api/board/${size}`);
     setBoard(genBoard.data.board);
   };
 
