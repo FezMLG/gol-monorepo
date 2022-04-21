@@ -21,5 +21,12 @@ jobs:
       #     targets: test,test:e2e
       #     all: 'true'
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.2'
+          cache: 'npm'
+      - run: npm install
+      - run: npm test
+
       - name: tests
         run: npm run test
