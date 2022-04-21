@@ -2,7 +2,6 @@ import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import Cell from '../components/cell/cell';
 import axios from 'axios';
-import { getRouteRegex } from 'next/dist/shared/lib/router/utils';
 
 const isBoardEmpty = (board: number[][]): boolean => {
   return board
@@ -26,16 +25,28 @@ export function Index() {
   }, []);
 
   const initialize = async () => {
-    const genBoard = await axios.get(`http://localhost:3333/api/board/${size}`);
-    setBoard(genBoard.data.board);
+    try {
+      const genBoard = await axios.get(
+        `http://localhost:3333/api/board/${size}`
+      );
+      setBoard(genBoard.data.board);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const tick = async () => {
-    const currentBoard = await axios.post('http://localhost:3333/api/tick', {
-      id: boardId,
-    });
-    if (isAutoplayOn) tick();
-    setBoard(currentBoard.data.board);
+    try {
+      const currentBoard = await axios.post('http://localhost:3333/api/tick', {
+        id: boardId,
+      });
+      setBoard(currentBoard.data.board);
+      // if (isAutoplayOn) {
+      //   tick();
+      // }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -45,14 +56,16 @@ export function Index() {
   }, [board]);
 
   useEffect(() => {
+    if (isAutoplayOn) {
+      const interval = setInterval(async () => {
+        await tick();
+      }, 100);
+      return () => clearInterval(interval);
+    }
     // if (isAutoplayOn) {
-    //   const interval = setInterval(async () => {
-    //     await tick();
-    //   }, 100);
-    //   return () => clearInterval(interval);
+    //   tick();
     // }
-    if (isAutoplayOn) tick();
-  }, [isAutoplayOn, isEmpty]);
+  }, [isAutoplayOn]);
 
   const setCell = (row: number, col: number) => {
     // game.setCell(row, col);
