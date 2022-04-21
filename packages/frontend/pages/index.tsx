@@ -52,6 +52,7 @@ export function Index() {
       // if (isAutoplayOn) {
       //   tick();
       // }
+      //
     } catch (error) {
       console.error(error);
     }
