@@ -20,3 +20,6 @@ jobs:
         with:
           targets: test,test:e2e
           all: 'true'
+
+      - name: tests
+        run: npm run test
