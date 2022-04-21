@@ -19,11 +19,12 @@ jobs:
         with:
           node-version: '16.14.2'
           cache: 'npm'
-      - run: npm install
-      - run: npm test
+
+      - name: Installing dependencies
+        run: npm install
 
       - name: Run Tests
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: test,test:e2e
-          all: 'true'
+        run: npm test
+
+      - name: Run Tests e2e
+        run: npm run test:e2e

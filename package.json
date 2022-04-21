@@ -6,7 +6,8 @@
     "start:backend": "node dist/packages/backend/main.js",
     "start:frontend": "cd dist/packages/frontend && npx next start",
     "heroku-postbuild": "nx build $PROJECT_NAME --prod",
-    "test": "npx nx run-many --target=test --all=true && npx nx run-many --target=test:e2e --all=true"
+    "test": "npx nx run-many --target=test",
+    "test:e2e": "npx nx run-many --target=test:e2e"
   },
   "private": true,
   "dependencies": {
