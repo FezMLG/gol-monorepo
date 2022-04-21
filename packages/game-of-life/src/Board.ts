@@ -38,12 +38,10 @@ export class Board {
   }
 
   tick(board: number[][]) {
-    this.board = board;
-    this.startingBoard = [...this.board];
-    return (this.board = this.board.map((row, i) => {
+    return (this.board = board.map((row, i) => {
       return row.map((col, j) => {
-        const n = this.getAllNeighbors(i, j, this.startingBoard);
-        const cell = new Cell(this.startingBoard[i][j], n).tick().getState();
+        const n = this.getAllNeighbors(i, j, board);
+        const cell = new Cell(board[i][j], n).tick().getState();
         return cell;
       });
     }));
