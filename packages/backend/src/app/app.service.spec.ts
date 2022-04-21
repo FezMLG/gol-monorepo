@@ -15,7 +15,7 @@ describe.skip('AppService', () => {
 
   describe('getData', () => {
     it('should return new game board', () => {
-      const bo = service.generateBoard({ size: '5' });
+      const bo = service.generateBoard({ size: 'abc' });
       expect(bo.board).toHaveLength(5);
       bo.board.forEach((element) => {
         expect(element).toHaveLength(5);
