@@ -15,18 +15,15 @@ jobs:
       - name: Check Out Repo
         uses: actions/checkout@v2
 
-      # - name: Run Tests
-      #   uses: mansagroup/nrwl-nx-action@v2
-      #   with:
-      #     targets: test,test:e2e
-      #     all: 'true'
-
       - uses: actions/setup-node@v3
         with:
           node-version: '16.14.2'
           cache: 'npm'
-      - run: npm install
-      - run: npm test
 
-      - name: tests
-        run: npm run test
+      - run: npm install
+
+      - name: Run Tests
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: test,test:e2e
+          all: 'true'
