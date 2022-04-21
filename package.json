@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "nx run-many --target=build --all=true",
     "start:backend": "node dist/packages/backend/main.js",
-    "start:frontend": "cd dist/packages/frontend && npx next start"
+    "start:frontend": "cd dist/packages/frontend && npx next start",
+    "heroku-postbuild": "nx build $PROJECT_NAME --prod"
   },
   "private": true,
   "dependencies": {
