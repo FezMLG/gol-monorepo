@@ -28,8 +28,8 @@ export class Board {
     let aliveNeighbors = 0;
     for (let i = x - 1; i <= x + 1; i++) {
       for (let j = y - 1; j <= y + 1; j++) {
-        if (j - 1 < 0 || j + 1 > board.length) continue;
-        if (i - 1 < 0 || i + 1 > board.length) continue;
+        if (j < 0 || j + 1 > board.length) continue;
+        if (i < 0 || i + 1 > board.length) continue;
         if (i === x && j === y) continue;
         if (board[i][j] === 1) aliveNeighbors++;
       }
